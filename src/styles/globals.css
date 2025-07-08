@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-dark: #0f172a;
+  --color-darker: #020617;
+  --color-light: #f8fafc;
+  --color-primary: #3b82f6;
+  --color-accent: #ec4899;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-dark text-light font-sans antialiased;
+    overflow-x: hidden;
+  }
+  
+  ::selection {
+    @apply bg-primary/30 text-light;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+  }
+  
+  a {
+    @apply transition-colors duration-200;
+  }
+}
+
+@layer components {
+  .section-heading {
+    @apply text-3xl md:text-4xl font-bold mb-12 relative inline-block;
+    
+    &::after {
+      @apply absolute -bottom-2 left-1/2 w-1/3 h-1 bg-primary/50;
+      content: '';
+      transform: translateX(-50%);
+    }
+  }
+  
+  .skill-badge {
+    @apply px-4 py-2 rounded-full bg-dark border border-primary/20 hover:border-primary/40 hover:bg-primary/10 transition-all duration-300 hoverable;
+  }
+  
+  .project-card {
+    @apply rounded-lg overflow-hidden border border-dark/20 hover:border-primary/30 bg-darker hover:bg-dark/50 transition-all duration-300 hoverable;
+    
+    &:hover .project-title {
+      @apply text-primary;
+    }
+  }
+  
+  .hoverable {
+    @apply transition-all duration-300;
+  }
+}
+
+/* Custom animations */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
