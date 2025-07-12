@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 :root {
   --color-dark: #0f172a;
@@ -16,48 +14,95 @@
   }
   
   body {
-    @apply bg-dark text-light font-sans antialiased;
+    background-color: var(--color-dark);
+    color: var(--color-light);
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
   }
   
   ::selection {
-    @apply bg-primary/30 text-light;
+    background-color: rgba(59, 130, 246, 0.3); /* bg-primary/30 */
+    color: #f8fafc; /* text-light */
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-bold;
+    font-weight: 700;
   }
   
   a {
-    @apply transition-colors duration-200;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-duration: 200ms;
   }
 }
 
 @layer components {
   .section-heading {
-    @apply text-3xl md:text-4xl font-bold mb-12 relative inline-block;
-    
-    &::after {
-      @apply absolute -bottom-2 left-1/2 w-1/3 h-1 bg-primary/50;
-      content: '';
-      transform: translateX(-50%);
+    font-size: 1.875rem; /* text-3xl */
+    font-weight: 700; /* font-bold */
+    margin-bottom: 3rem; /* mb-12 */
+    position: relative; /* relative */
+    display: inline-block; /* inline-block */
+  }
+  @media (min-width: 768px) {
+    .section-heading {
+      font-size: 2.25rem; /* md:text-4xl */
     }
   }
-  
+
   .skill-badge {
-    @apply px-4 py-2 rounded-full bg-dark border border-primary/20 hover:border-primary/40 hover:bg-primary/10 transition-all duration-300 hoverable;
+    padding-left: 1rem; /* px-4 */
+    padding-right: 1rem;
+    padding-top: 0.5rem; /* py-2 */
+    padding-bottom: 0.5rem;
+    border-radius: 9999px; /* rounded-full */
+    background-color: var(--color-dark); /* bg-dark */
+    border: 1px solid rgba(59, 130, 246, 0.2); /* border-primary/20 */
+    transition: all 0.3s; /* transition-all duration-300 */
+  }
+  .skill-badge:hover {
+    border-color: rgba(59, 130, 246, 0.4); /* hover:border-primary/40 */
+    background-color: rgba(59, 130, 246, 0.1); /* hover:bg-primary/10 */
   }
   
   .project-card {
-    @apply rounded-lg overflow-hidden border border-dark/20 hover:border-primary/30 bg-darker hover:bg-dark/50 transition-all duration-300 hoverable;
-    
-    &:hover .project-title {
-      @apply text-primary;
-    }
+    border-radius: 0.5rem; /* rounded-lg */
+    overflow: hidden; /* overflow-hidden */
+    border: 1px solid rgba(15, 23, 42, 0.2); /* border-dark/20 */
+    background-color: var(--color-darker); /* bg-darker */
+    transition: all 0.3s; /* transition-all duration-300 */
+  }
+  .project-card:hover {
+    border-color: rgba(59, 130, 246, 0.3); /* hover:border-primary/30 */
+    background-color: rgba(15, 23, 42, 0.5); /* hover:bg-dark/50 */
+  }
+  .project-card:hover .project-title {
+    color: var(--color-primary); /* text-primary */
   }
   
   .hoverable {
-    @apply transition-all duration-300;
+    transition: all 0.3s; /* transition-all duration-300 */
+  }
+  
+  /* Removed @apply usage due to CSS error. Use Tailwind classes directly in your HTML. */
+  .project-card {
+    border-radius: 0.5rem; /* rounded-lg */
+    overflow: hidden; /* overflow-hidden */
+    border: 1px solid rgba(15, 23, 42, 0.2); /* border-dark/20 */
+    background-color: var(--color-darker); /* bg-darker */
+    transition: all 0.3s; /* transition-all duration-300 */
+  }
+  .project-card:hover {
+    border-color: rgba(59, 130, 246, 0.3); /* hover:border-primary/30 */
+    background-color: rgba(15, 23, 42, 0.5); /* hover:bg-dark/50 */
+  }
+  .project-card:hover .project-title {
+    color: var(--color-primary); /* text-primary */
+  }
+
+  .hoverable {
+    transition: all 0.3s; /* transition-all duration-300 */
   }
 }
 
