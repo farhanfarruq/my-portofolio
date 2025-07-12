@@ -36,7 +36,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link href="#" className="text-xl font-bold text-primary hoverable">
-            JD
+            paan dev.
           </Link>
 
           {/* Desktop Navigation */}
@@ -51,13 +51,13 @@ export default function Navbar() {
               </Link>
             ))}
             <div className="flex items-center space-x-4 ml-6">
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-light/70 hover:text-primary transition-colors hoverable">
+              <a href="https://github.com/farhanfarruq" target="_blank" rel="noopener noreferrer" className="text-light/70 hover:text-primary transition-colors hoverable">
                 <FiGithub className="h-5 w-5" />
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-light/70 hover:text-primary transition-colors hoverable">
+              <a href="https://linkedin.com/in/farhan-faruq" target="_blank" rel="noopener noreferrer" className="text-light/70 hover:text-primary transition-colors hoverable">
                 <FiLinkedin className="h-5 w-5" />
               </a>
-              <a href="mailto:john@example.com" className="text-light/70 hover:text-primary transition-colors hoverable">
+              <a href="mailto:farhanmiftakhulfarruq@example.com" className="text-light/70 hover:text-primary transition-colors hoverable">
                 <FiMail className="h-5 w-5" />
               </a>
             </div>
@@ -99,13 +99,13 @@ export default function Navbar() {
               </Link>
             ))}
             <div className="flex space-x-4 px-3 py-4">
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-light/70 hover:text-primary transition-colors hoverable">
+              <a href="https://github.com/farhanfarruq" target="_blank" rel="noopener noreferrer" className="text-light/70 hover:text-primary transition-colors hoverable">
                 <FiGithub className="h-5 w-5" />
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-light/70 hover:text-primary transition-colors hoverable">
+              <a href="https://www.linkedin.com/in/farhan-faruq/" target="_blank" rel="noopener noreferrer" className="text-light/70 hover:text-primary transition-colors hoverable">
                 <FiLinkedin className="h-5 w-5" />
               </a>
-              <a href="mailto:john@example.com" className="text-light/70 hover:text-primary transition-colors hoverable">
+              <a href="mailto:farhanmiftakhulfarruq@example.com" className="text-light/70 hover:text-primary transition-colors hoverable">
                 <FiMail className="h-5 w-5" />
               </a>
             </div>

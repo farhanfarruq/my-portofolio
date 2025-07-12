@@ -1,0 +1,34 @@
+.starsContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: -1;
+  /* Mengganti gradien ungu menjadi hitam pekat */
+  background-color: #020617; 
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  /* Mulai dari atas layar */
+  top: -10px; 
+  background-color: #ffffff;
+  border-radius: 50%;
+  /* Menetapkan properti animasi */
+  animation-name: moveStar;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+/* Animasi hanya untuk pergerakan dari atas ke bawah */
+@keyframes moveStar {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    /* Bergerak hingga ke bawah layar */
+    transform: translateY(105vh); 
+  }
+}

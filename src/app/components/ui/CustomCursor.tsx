@@ -1,55 +1,77 @@
 "use client";
 import { useState, useEffect } from 'react';
-import { useMousePosition } from '../../hooks/useMouusePoaition';
-export default function CustomCursor() {
-  const { x, y } = useMousePosition();
-  const [isHovered, setIsHovered] = useState(false);
-  const [isHidden, setIsHidden] = useState(false);
+import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { useMousePosition } from '../../../hooks/useMousePosition';
 
+export default function CustomCursor() {
+  // 1. Dapatkan posisi mouse mentah
+  const { x: mouseX, y: mouseY } = useMousePosition();
+  const [isHovered, setIsHovered] = useState(false);
+
+  // 2. Buat MotionValues untuk posisi kursor
+  // Ini adalah nilai animasi yang tidak memicu re-render, sangat efisien.
+  const cursorX = useMotionValue(-100);
+  const cursorY = useMotionValue(-100);
+
+  // 3. Buat animasi pegas (spring) untuk kehalusan
+  const springConfig = { damping: 25, stiffness: 700, mass: 0.5 };
+  const cursorXSpring = useSpring(cursorX, springConfig);
+  const cursorYSpring = useSpring(cursorY, springConfig);
+
+  // 4. Perbarui MotionValues saat mouse bergerak
+  useEffect(() => {
+    cursorX.set(mouseX);
+    cursorY.set(mouseY);
+  }, [mouseX, mouseY, cursorX, cursorY]);
+
+  // Event listener untuk mengubah state saat hover
   useEffect(() => {
     const hoverables = document.querySelectorAll('.hoverable');
-    
+    const handleMouseEnter = () => setIsHovered(true);
+    const handleMouseLeave = () => setIsHovered(false);
+
     hoverables.forEach(el => {
-      el.addEventListener('mouseenter', () => setIsHovered(true));
-      el.addEventListener('mouseleave', () => setIsHovered(false));
+      el.addEventListener('mouseenter', handleMouseEnter);
+      el.addEventListener('mouseleave', handleMouseLeave);
     });
-
-    const handleMouseLeave = () => setIsHidden(true);
-    const handleMouseEnter = () => setIsHidden(false);
-
-    document.addEventListener('mouseleave', handleMouseLeave);
-    document.addEventListener('mouseenter', handleMouseEnter);
 
     return () => {
       hoverables.forEach(el => {
-        el.removeEventListener('mouseenter', () => setIsHovered(true));
-        el.removeEventListener('mouseleave', () => setIsHovered(false));
+        el.removeEventListener('mouseenter', handleMouseEnter);
+        el.removeEventListener('mouseleave', handleMouseLeave);
       });
-      document.removeEventListener('mouseleave', handleMouseLeave);
-      document.removeEventListener('mouseenter', handleMouseEnter);
     };
   }, []);
 
-  if (isHidden) return null;
+  // 5. Definisikan variants untuk mengubah ukuran dan gaya
+  const cursorVariants = {
+    default: {
+      width: 16,
+      height: 16,
+      backgroundColor: "var(--color-primary)",
+      borderWidth: "0px",
+    },
+    hovered: {
+      width: 40,
+      height: 40,
+      backgroundColor: "transparent",
+      borderWidth: "2px",
+      borderColor: "var(--color-primary)",
+    }
+  };
 
   return (
-    <div 
-      className={`fixed top-0 left-0 pointer-events-none z-50 transition-transform duration-100 ${
-        isHovered ? 'scale-150' : 'scale-100'
-      }`}
+    <motion.div
+      variants={cursorVariants}
+      animate={isHovered ? "hovered" : "default"}
+      // 6. Terapkan posisi spring ke style
       style={{
-        transform: `translate(${x}px, ${y}px)`,
+        x: cursorXSpring,
+        y: cursorYSpring,
+        translateX: "-50%", // Centering trick
+        translateY: "-50%", // Centering trick
       }}
-    >
-      <div className={`w-4 h-4 rounded-full ${
-        isHovered ? 'bg-transparent border-2 border-primary' : 'bg-primary'
-      } transition-all duration-300`}></div>
-      {isHovered && (
-        <div 
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-primary/10 animate-ping"
-          style={{ animationDuration: '1500ms' }}
-        />
-      )}
-    </div>
+      className="fixed top-0 left-0 pointer-events-none z-50 rounded-full"
+    />
   );
 }

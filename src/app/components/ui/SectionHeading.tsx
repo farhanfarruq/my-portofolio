@@ -1,7 +1,7 @@
 "use client";
 import { motion } from 'framer-motion';
-import { fadeIn } from '../../hooks/useScrollAnimation';
-import { useScrollAnimation } from '../../hooks/useScrollAnimation';
+import { fadeIn } from '../../../hooks/useScrollAnimation';
+import { useScrollAnimation } from '../../../hooks/useScrollAnimation';
 
 export default function SectionHeading({ children }: { children: React.ReactNode }) {
   const { ref, controls } = useScrollAnimation();

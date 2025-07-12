@@ -1,7 +1,7 @@
 "use client";
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion'; // 👈 Impor Variants
 
-const container = {
+const container: Variants = { // 👈 Tambahkan tipe Variants
   hidden: { opacity: 0 },
   visible: (i = 1) => ({
     opacity: 1,
@@ -9,7 +9,7 @@ const container = {
   }),
 };
 
-const child = {
+const child: Variants = { // 👈 Tambahkan tipe Variants
   visible: {
     opacity: 1,
     y: 0,
@@ -31,6 +31,7 @@ const child = {
 };
 
 export default function AnimatedText({ text, className = "" }: { text: string, className?: string }) {
+  // ... sisa kode tidak berubah
   return (
     <motion.div
       className={`flex flex-wrap justify-center ${className}`}
@@ -40,7 +41,7 @@ export default function AnimatedText({ text, className = "" }: { text: string, c
     >
       {text.split(" ").map((word, wordIndex) => (
         <motion.span
-          variants={container}
+          variants={container} // Seharusnya ini container, bukan child
           key={`word-${wordIndex}`}
           className="whitespace-nowrap"
         >

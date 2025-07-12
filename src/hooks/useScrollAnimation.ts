@@ -1,26 +1,24 @@
 import { useEffect } from 'react';
-import { motion, useAnimation } from 'framer-motion';
+import { useAnimation, Variants } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
 export function useScrollAnimation() {
   const controls = useAnimation();
   const [ref, inView] = useInView({
     threshold: 0.1,
-    triggerOnce: false,
+    triggerOnce: true, // Animasi hanya akan berjalan sekali saat elemen masuk layar
   });
 
   useEffect(() => {
     if (inView) {
       controls.start('visible');
-    } else {
-      controls.start('hidden');
     }
   }, [controls, inView]);
 
   return { ref, controls };
 }
 
-export const fadeIn = {
+export const fadeIn: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
@@ -32,7 +30,7 @@ export const fadeIn = {
   },
 };
 
-export const fadeInLeft = {
+export const fadeInLeft: Variants = {
   hidden: { opacity: 0, x: -20 },
   visible: {
     opacity: 1,
@@ -44,7 +42,7 @@ export const fadeInLeft = {
   },
 };
 
-export const fadeInRight = {
+export const fadeInRight: Variants = {
   hidden: { opacity: 0, x: 20 },
   visible: {
     opacity: 1,
@@ -56,17 +54,17 @@ export const fadeInRight = {
   },
 };
 
-export const staggerContainer = {
+export const staggerContainer: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
+      staggerChildren: 0.2, // Sedikit menambah jeda antar item
     },
   },
 };
 
-export const scaleUp = {
+export const scaleUp: Variants = {
   hidden: { opacity: 0, scale: 0.8 },
   visible: {
     opacity: 1,
@@ -74,6 +72,22 @@ export const scaleUp = {
     transition: {
       duration: 0.5,
       ease: "easeOut",
+    },
+  },
+};
+
+// --- KODE BARU YANG DITAMBAHKAN ---
+export const fadeInUp: Variants = {
+  hidden: { 
+    opacity: 0, 
+    y: 50 // Mulai dari posisi 50px di bawah
+  },
+  visible: {
+    opacity: 1,
+    y: 0, // Pindah ke posisi normal
+    transition: {
+      duration: 0.7,
+      ease: 'easeOut',
     },
   },
 };
