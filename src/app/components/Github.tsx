@@ -1,11 +1,10 @@
 "use client";
 import { useState, useEffect } from 'react';
-import Image from 'next/image'; // Pastikan Image diimpor
+import Image from 'next/image'; // Tetap gunakan untuk foto profil
 import SectionHeading from './ui/SectionHeading';
 import { motion } from 'framer-motion';
 import { staggerContainer, fadeInUp } from '../../hooks/useScrollAnimation';
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
-// FiPackage sudah dihapus dari baris ini
 import { FiUsers, FiUserPlus, FiExternalLink } from 'react-icons/fi';
 
 // Interface untuk tipe data profil GitHub
@@ -23,7 +22,7 @@ export default function Github() {
   const { ref, controls } = useScrollAnimation();
   const [profile, setProfile] = useState<GitHubProfile | null>(null);
   const GITHUB_USERNAME = 'farhanfarruq';
-  const THEME = 'radical';
+  const THEME = 'radical'; 
 
   useEffect(() => {
     async function fetchProfile() {
@@ -61,6 +60,7 @@ export default function Github() {
                 <div className="bg-darker/50 p-6 rounded-lg border border-primary/20 flex flex-col items-center text-center">
                     {profile ? (
                         <>
+                            {/* Gunakan <Image> hanya untuk avatar karena URL-nya stabil */}
                             <Image
                                 src={profile.avatar_url}
                                 alt={profile.name || 'GitHub Avatar'}
@@ -90,44 +90,36 @@ export default function Github() {
                     )}
                 </div>
 
-                {/* GitHub Streak Stats */}
+                {/* GitHub Streak Stats - KEMBALI MENGGUNAKAN <img> dan URL HTTPS */}
                 <div className="flex justify-center">
-                    <Image
-                        src={`https://github-readme-streak-stats.herokuapp.com/?user=${GITHUB_USERNAME}&theme=${THEME}`}
+                    <img 
+                        src={`https://github-readme-streak-stats.herokuapp.com/?user=${GITHUB_USERNAME}&theme=${THEME}`} 
                         alt="GitHub Streak"
-                        width={500}
-                        height={195}
-                        className="rounded-lg w-full"
+                        className="rounded-lg" 
                     />
                 </div>
             </motion.div>
 
-            {/* Kolom Kanan: Statistik Visual */}
+            {/* Kolom Kanan: Statistik Visual - KEMBALI MENGGUNAKAN <img> */}
             <motion.div variants={fadeInUp} className="lg:col-span-2 space-y-8">
-                <Image
+                <img
                     src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${GITHUB_USERNAME}&layout=compact&langs_count=8&theme=${THEME}`}
                     alt="Top Languages"
-                    width={500}
-                    height={195}
                     className="w-full rounded-lg"
                 />
-                <Image
+                <img
                     src={`https://github-readme-stats.vercel.app/api?username=${GITHUB_USERNAME}&show_icons=true&theme=${THEME}&include_all_commits=true&count_private=true`}
                     alt="GitHub Stats"
-                    width={500}
-                    height={195}
                     className="w-full rounded-lg"
                 />
             </motion.div>
         </motion.div>
-
-        {/* Kontribusi di bawah */}
+        
+        {/* Kontribusi di bawah - KEMBALI MENGGUNAKAN <img> */}
         <motion.div variants={fadeInUp} initial="hidden" animate={controls}>
-            <Image
+            <img
                 src={`https://ghchart.rshah.org/${GITHUB_USERNAME}`}
                 alt="GitHub Contributions"
-                width={890}
-                height={165}
                 className="w-full rounded-lg"
             />
         </motion.div>
