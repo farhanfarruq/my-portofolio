@@ -21,6 +21,8 @@ export default function Navbar() {
     { name: 'Skills', href: '#skills' },
     { name: 'Experience', href: '#experience' },
     { name: 'Projects', href: '#projects' },
+    { name: 'GitHub', href: '#github' },      // Tambahkan ini
+    { name: 'LinkedIn', href: '#linkedin' },
     { name: 'Contact', href: '#contact' },
   ];
 

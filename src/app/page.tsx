@@ -12,6 +12,8 @@ import Projects from '../app/components/Projects';
 import Contact from '../app/components/Contact';
 import FloatingHook from '../app/components/ui/FloatingHook';
 import CustomCursor from '../app/components/ui/CustomCursor';
+import Github from '../app/components/Github';
+import LinkedIn from '../app/components/LinkedIn'; 
 
 export default function Home() {
   const [isMounted, setIsMounted] = useState(false);
@@ -52,6 +54,8 @@ export default function Home() {
           <Skills />
           <Experience />
           <Projects />
+          <Github />
+          <LinkedIn />
           <Contact />
         </main>
       </div>
