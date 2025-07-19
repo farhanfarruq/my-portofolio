@@ -35,7 +35,7 @@ export default function Hero() {
           transition={{ delay: 0.8 }}
           className="max-w-2xl mx-auto text-light/60 text-lg hoverable-text"
         >
-          I'm a passionate web developer specializing in modern JavaScript frameworks. 
+          I&apos;m a passionate web developer specializing in modern JavaScript frameworks. 
           I create exceptional digital experiences with clean, efficient code.
         </motion.p>
         

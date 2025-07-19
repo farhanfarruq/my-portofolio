@@ -1,9 +1,8 @@
 "use client";
 import { motion } from 'framer-motion';
 import SectionHeading from './ui/SectionHeading';
-import { fadeIn, fadeInUp, staggerContainer } from '../../hooks/useScrollAnimation';
+import {fadeInUp, staggerContainer } from '../../hooks/useScrollAnimation';
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
-import { FiExternalLink } from 'react-icons/fi';
 
 const experiences = [
   {
