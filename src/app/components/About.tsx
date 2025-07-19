@@ -45,15 +45,15 @@ export default function About() {
           variants={fadeInUp}
           className="relative order-1 md:order-2 mx-auto"
         >
-          <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-lg overflow-hidden border-2 border-primary/30 hover:border-primary/50 transition-all duration-300 hoverable">
-            <Image
-              src="/images/avatar.jpg"  // <-- PERBAIKAN: Menambahkan slash "/"
-              alt="Farhan Farruq"
-              fill
-              className="object-cover grayscale hover:grayscale-0 transition-all duration-500"
-            />
-            <div className="absolute inset-0 bg-primary/10 mix-blend-multiply group-hover:bg-transparent transition-all" />
-          </div>
+          <div className="group relative w-64 h-64 md:w-80 md:h-80 rounded-lg overflow-hidden border-2 border-primary/30 hover:border-primary/50 transition-all duration-300">
+    <Image
+        src="/images/avatar.jpg"
+        alt="Farhan Farruq"
+        fill
+        className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500" // group-hover juga bisa dipakai di sini
+    />
+    <div className="absolute inset-0 bg-primary/10 mix-blend-multiply group-hover:bg-transparent transition-all" />
+</div>
         </motion.div>
       </motion.div>
     </section>
