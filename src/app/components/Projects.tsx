@@ -14,7 +14,7 @@ const projectsData =
     description: 'A full-stack e-commerce web application built with Laravel. It includes features such as product filtering, cart functionality, user authentication, and integrated payment gateway. Deployed using Laravel Cloud for optimal performance and scalability.',
     tags: ['Laravel', 'Blade', 'MySQL', 'Laravel Cloud'],
     github: 'https://github.com/farhanfarruq/sadardiri-web',
-    live: 'https://sadardiri-web.laravel.cloud/',
+    live: 'https://sadardiri.laravel.cloud/',
     image: '/images/project1.jpg'
   },
   {
