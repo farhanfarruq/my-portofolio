@@ -30,7 +30,7 @@ export default function Contact() {
       );
       setSubmitStatus({ success: true, message: 'Your message has been sent successfully!' });
       setFormData({ name: '', email: '', message: '' });
-    } catch (error) {
+    } catch {
       setSubmitStatus({ success: false, message: 'Failed to send message. Please try again later.' });
     } finally {
       setIsSubmitting(false);
