@@ -22,13 +22,13 @@ export default function About() {
           </div>
           <div className="space-y-6 text-light/80 hoverable-text">
             <p>
-              Hello! I'm Farhan Miftakhul Farruq, a Computer Science undergraduate student at Institut Teknologi Dirgantara Adisutjipto based in Yogyakarta. I specialize in full-stack web development and have a strong passion for creating seamless and impactful digital experiences.
+              Hello! I&apos;m Farhan Miftakhul Farruq, a Computer Science undergraduate student at Institut Teknologi Dirgantara Adisutjipto based in Yogyakarta. I specialize in full-stack web development and have a strong passion for creating seamless and impactful digital experiences.
             </p>
             <p>
-              Fast-forward to today, I've been working as a freelance web developer, collaborating on a variety of projects ranging from personal websites to small business applications. This experience has allowed me to continuously sharpen my skills in both front-end and back-end development while helping clients bring their ideas to life online.
+              Fast-forward to today, I&apos;ve been working as a freelance web developer, collaborating on a variety of projects ranging from personal websites to small business applications. This experience has allowed me to continuously sharpen my skills in both front-end and back-end development while helping clients bring their ideas to life online.
             </p>
             <p>
-              Here are a few technologies I've been working with recently:
+              Here are a few technologies I&apos;ve been working with recently:
             </p>
             <ul className="grid grid-cols-2 gap-x-6 gap-y-2 mt-4">
               {['JavaScript (ES6+)', 'TypeScript', 'React', 'Next.js', 'Node.js', 'Tailwind CSS'].map((tech) => (

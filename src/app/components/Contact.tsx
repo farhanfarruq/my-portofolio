@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
 import SectionHeading from './ui/SectionHeading';
-import { fadeIn, fadeInUp } from '../../hooks/useScrollAnimation';
+import {fadeInUp } from '../../hooks/useScrollAnimation';
 import { useScrollAnimation } from '../../hooks/useScrollAnimation';
 
 export default function Contact() {
@@ -51,8 +51,8 @@ export default function Contact() {
           animate={controls}
         >
           <p className="text-center text-light/80 mb-12 hoverable-text">
-            I'm currently looking for new opportunities. Whether you have a question or just want to say hi, 
-            I'll do my best to get back to you!
+            I&apos;m currently looking for new opportunities. Whether you have a question or just want to say hi, 
+            I&apos;ll do my best to get back to you!
           </p>
           
           <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
