@@ -1,8 +1,8 @@
-"use client";
+'use client';
+
 import { motion } from 'framer-motion';
-import Image from 'next/image';
-import { FiGithub, FiExternalLink } from 'react-icons/fi';
-import { fadeInUp } from '../../hooks/useScrollAnimation';
+import { Github, ExternalLink } from 'lucide-react';
+import Badge from './ui/Badge';
 
 interface ProjectCardProps {
   title: string;
@@ -10,70 +10,68 @@ interface ProjectCardProps {
   tags: string[];
   github: string;
   live: string;
-  image: string;
+  index: number;
+  isInView: boolean;
 }
 
-export default function ProjectCard({ title, description, tags, github, live, image }: ProjectCardProps) {
+export default function ProjectCard({
+  title,
+  description,
+  tags,
+  github,
+  live,
+  index,
+  isInView,
+}: ProjectCardProps) {
   return (
-    <motion.div
-      variants={fadeInUp}
-      className="project-card group bg-darker/50 rounded-lg overflow-hidden border border-primary/20 hover:border-primary/40 transition-all duration-300 hoverable flex flex-col min-h-[500px]"
+    <motion.article
+      initial={{ opacity: 0, y: 24 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ delay: index * 0.1, duration: 0.5, ease: [0.21, 0.47, 0.32, 0.98] }}
+      className="group flex flex-col bg-zinc-900/50 border border-zinc-800 rounded-lg p-6 hover:border-zinc-700 hover:bg-zinc-900 transition-all duration-300"
     >
-      {/* GAMBAR */}
-      <div className="relative h-48 w-full overflow-hidden flex-shrink-0">
-        <Image
-          src={image || '/images/avatar.jpg'} // Fallback untuk gambar
-          alt={title}
-          fill
-          className="object-cover group-hover:scale-105 transition-transform duration-500"
-        />
-      </div>
-
-      {/* KONTEN */}
-      <div className="p-6 flex flex-col flex-grow">
-        <h3 className="text-xl font-bold text-white mb-3 project-title">{title}</h3>
-        <p className="text-light/70 mb-4 flex-grow leading-relaxed">{description}</p>
-
-        {/* TAGS */}
-        <div className="flex flex-wrap gap-2 mb-4">
-          {tags?.map((tag) => (
-            <span key={tag} className="text-xs font-mono text-primary px-2 py-1 bg-primary/10 rounded">
-              {tag}
-            </span>
-          ))}
-        </div>
-
-        {/* IKON LINK */}
-        <div className="flex space-x-4 mt-auto pt-2 border-t border-primary/10">
-          {/* Tautan GitHub */}
+      {/* Header */}
+      <div className="flex items-start justify-between mb-4">
+        <h3 className="text-base font-medium text-zinc-100 group-hover:text-white transition-colors">
+          {title}
+        </h3>
+        <div className="flex items-center gap-3 ml-4 shrink-0">
           {github && (
             <a
               href={github}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-light/70 hover:text-primary transition-colors flex items-center gap-1"
-              aria-label="GitHub"
+              aria-label={`${title} on GitHub`}
+              className="text-zinc-600 hover:text-zinc-300 transition-colors"
             >
-              <FiGithub size={20} />
-              <span className="text-sm">GitHub</span>
+              <Github size={16} />
             </a>
           )}
-          
-          {/* Tautan Live Demo */}
           {live && (
             <a
               href={live}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-light/70 hover:text-primary transition-colors flex items-center gap-1"
-              aria-label="Live Demo"
+              aria-label={`${title} live demo`}
+              className="text-zinc-600 hover:text-zinc-300 transition-colors"
             >
-              <FiExternalLink size={20} />
-              <span className="text-sm">Live Demo</span>
+              <ExternalLink size={16} />
             </a>
           )}
         </div>
       </div>
-    </motion.div>
+
+      {/* Description */}
+      <p className="text-sm text-zinc-400 leading-relaxed flex-grow mb-5">
+        {description}
+      </p>
+
+      {/* Tags */}
+      <div className="flex flex-wrap gap-1.5 mt-auto">
+        {tags.map((tag) => (
+          <Badge key={tag}>{tag}</Badge>
+        ))}
+      </div>
+    </motion.article>
   );
 }

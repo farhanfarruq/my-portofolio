@@ -1,20 +1,23 @@
-"use client";
-import { motion } from 'framer-motion';
-import { fadeIn } from '../../../hooks/useScrollAnimation';
-import { useScrollAnimation } from '../../../hooks/useScrollAnimation';
+import { cn } from '@/lib/utils';
 
-export default function SectionHeading({ children }: { children: React.ReactNode }) {
-  const { ref, controls } = useScrollAnimation();
+interface SectionHeadingProps {
+  index: string;
+  title: string;
+  className?: string;
+}
 
+export default function SectionHeading({ index, title, className }: SectionHeadingProps) {
   return (
-    <motion.h2
-      ref={ref}
-      variants={fadeIn}
-      initial="hidden"
-      animate={controls}
-      className="section-heading text-3xl md:text-4xl font-bold mb-12 text-center"
-    >
-      {children}
-    </motion.h2>
+    <div className={cn('mb-16', className)}>
+      <div className="flex items-center gap-4">
+        <span className="font-[var(--font-geist-mono)] text-sm text-zinc-500 tracking-widest">
+          {index}
+        </span>
+        <h2 className="text-2xl font-semibold tracking-tight text-zinc-100">
+          {title}
+        </h2>
+        <div className="flex-1 h-px bg-zinc-800" />
+      </div>
+    </div>
   );
 }

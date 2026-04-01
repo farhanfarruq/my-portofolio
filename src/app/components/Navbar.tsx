@@ -1,119 +1,138 @@
-"use client";
+'use client';
+
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { FiGithub, FiLinkedin, FiMail, FiMenu, FiX } from 'react-icons/fi';
 import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Github, Linkedin, Mail, Menu, X } from 'lucide-react';
+import { personal } from '@/lib/data';
+import { cn } from '@/lib/utils';
+
+const navItems = [
+  { label: 'About', href: '#about' },
+  { label: 'Skills', href: '#skills' },
+  { label: 'Experience', href: '#experience' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Contact', href: '#contact' },
+];
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const navItems = [
-    { name: 'About', href: '#about' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'GitHub', href: '#github' },      // Tambahkan ini
-    { name: 'LinkedIn', href: '#linkedin' },
-    { name: 'Contact', href: '#contact' },
-  ];
-
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        scrolled ? 'py-2 bg-dark/90 backdrop-blur-md border-b border-primary/10' : 'py-4'
-      }`}
+    <header
+      className={cn(
+        'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
+        scrolled
+          ? 'bg-zinc-950/90 backdrop-blur-md border-b border-zinc-800/60'
+          : 'bg-transparent'
+      )}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
-          <Link href="#" className="text-xl font-bold text-primary hoverable">
-            paan dev.
+      <div className="max-w-5xl mx-auto px-6 lg:px-8">
+        <nav className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <Link
+            href="#"
+            className="font-[var(--font-geist-mono)] text-sm text-zinc-300 hover:text-zinc-100 transition-colors"
+          >
+            {personal.handle}
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          {/* Desktop Nav */}
+          <div className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
               <Link
-                key={item.name}
+                key={item.href}
                 href={item.href}
-                className="text-light/80 hover:text-primary transition-colors hoverable"
+                className="text-sm text-zinc-400 hover:text-zinc-100 transition-colors duration-200"
               >
-                {item.name}
+                {item.label}
               </Link>
             ))}
-            <div className="flex items-center space-x-4 ml-6">
-              <a href="https://github.com/farhanfarruq" target="_blank" rel="noopener noreferrer" className="text-light/70 hover:text-primary transition-colors hoverable">
-                <FiGithub className="h-5 w-5" />
-              </a>
-              <a href="https://linkedin.com/in/farhan-faruq" target="_blank" rel="noopener noreferrer" className="text-light/70 hover:text-primary transition-colors hoverable">
-                <FiLinkedin className="h-5 w-5" />
-              </a>
-              <a href="mailto:farhanmiftakhulfarruq@example.com" className="text-light/70 hover:text-primary transition-colors hoverable">
-                <FiMail className="h-5 w-5" />
-              </a>
-            </div>
           </div>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-light/70 hover:text-primary focus:outline-none hoverable"
+          {/* Desktop Social Icons */}
+          <div className="hidden md:flex items-center gap-4">
+            <a
+              href={personal.social.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+              className="text-zinc-500 hover:text-zinc-200 transition-colors"
             >
-              {isOpen ? (
-                <FiX className="h-6 w-6" />
-              ) : (
-                <FiMenu className="h-6 w-6" />
-              )}
-            </button>
+              <Github size={18} />
+            </a>
+            <a
+              href={personal.social.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="text-zinc-500 hover:text-zinc-200 transition-colors"
+            >
+              <Linkedin size={18} />
+            </a>
+            <a
+              href={personal.social.email}
+              aria-label="Email"
+              className="text-zinc-500 hover:text-zinc-200 transition-colors"
+            >
+              <Mail size={18} />
+            </a>
           </div>
-        </div>
+
+          {/* Mobile Hamburger */}
+          <button
+            className="md:hidden text-zinc-400 hover:text-zinc-100 transition-colors"
+            onClick={() => setMobileOpen((v) => !v)}
+            aria-label="Toggle menu"
+          >
+            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
+        </nav>
       </div>
 
-      {/* Mobile Navigation */}
-      {isOpen && (
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-          className="md:hidden bg-darker/95 backdrop-blur-lg border-t border-primary/10"
-        >
-          <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                onClick={() => setIsOpen(false)}
-                className="block px-3 py-2 text-base font-medium text-light/80 hover:text-primary hover:bg-dark/50 rounded-md transition-colors hoverable"
-              >
-                {item.name}
-              </Link>
-            ))}
-            <div className="flex space-x-4 px-3 py-4">
-              <a href="https://github.com/farhanfarruq" target="_blank" rel="noopener noreferrer" className="text-light/70 hover:text-primary transition-colors hoverable">
-                <FiGithub className="h-5 w-5" />
-              </a>
-              <a href="https://www.linkedin.com/in/farhan-faruq/" target="_blank" rel="noopener noreferrer" className="text-light/70 hover:text-primary transition-colors hoverable">
-                <FiLinkedin className="h-5 w-5" />
-              </a>
-              <a href="mailto:farhanmiftakhulfarruq@example.com" className="text-light/70 hover:text-primary transition-colors hoverable">
-                <FiMail className="h-5 w-5" />
-              </a>
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden bg-zinc-950/95 backdrop-blur-lg border-b border-zinc-800"
+          >
+            <div className="max-w-5xl mx-auto px-6 py-4 flex flex-col gap-1">
+              {navItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMobileOpen(false)}
+                  className="text-zinc-400 hover:text-zinc-100 py-2.5 text-sm transition-colors"
+                >
+                  {item.label}
+                </Link>
+              ))}
+              <div className="flex items-center gap-5 pt-4 border-t border-zinc-800 mt-2">
+                <a href={personal.social.github} target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-zinc-200 transition-colors" aria-label="GitHub">
+                  <Github size={18} />
+                </a>
+                <a href={personal.social.linkedin} target="_blank" rel="noopener noreferrer" className="text-zinc-500 hover:text-zinc-200 transition-colors" aria-label="LinkedIn">
+                  <Linkedin size={18} />
+                </a>
+                <a href={personal.social.email} className="text-zinc-500 hover:text-zinc-200 transition-colors" aria-label="Email">
+                  <Mail size={18} />
+                </a>
+              </div>
             </div>
-          </div>
-        </motion.div>
-      )}
-    </motion.nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
   );
 }

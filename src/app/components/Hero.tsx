@@ -1,69 +1,86 @@
-"use client";
+'use client';
+
 import { motion } from 'framer-motion';
-import AnimatedText from './ui/Animated';
-import { FiChevronDown } from 'react-icons/fi';
+import { ArrowRight, Github } from 'lucide-react';
+import { personal } from '@/lib/data';
+import Button from './ui/Button';
 
 export default function Hero() {
   return (
-    <section id="home" className="min-h-screen flex flex-col justify-center items-center relative">
-      <div className="text-center space-y-8 px-4">
-        {/* Tambahkan kelas hoverable-text di sini */}
+    <section
+      id="home"
+      className="min-h-screen flex flex-col justify-center pt-24 pb-16"
+    >
+      <div className="max-w-5xl mx-auto px-6 lg:px-8 w-full">
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className="text-primary font-mono mb-2 hoverable-text" 
-        >
-          Hi, my name is
-        </motion.div>
-        
-        {/* Dan di sini */}
-        <AnimatedText 
-          text="Farhan Farruq" 
-          className="text-6xl md:text-8xl font-bold text-light mb-4 hoverable-text" 
-        />
-        
-        {/* Dan juga di sini */}
-        <AnimatedText 
-          text="I build things for the web." 
-          className="text-2xl md:text-4xl font-semibold text-light/80 mb-8 hoverable-text" 
-        />
-        
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8 }}
-          className="max-w-2xl mx-auto text-light/60 text-lg hoverable-text"
+          transition={{ duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] }}
+          className="max-w-3xl"
         >
-          I&apos;m a passionate web developer specializing in modern JavaScript frameworks. 
-          I create exceptional digital experiences with clean, efficient code.
-        </motion.p>
-        
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-          className="pt-8"
-        >
-          <a
-            href="#contact"
-            className="inline-block px-8 py-3 border border-primary text-primary font-mono rounded-md hover:bg-primary/10 transition-colors hoverable"
+          {/* Availability badge */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.1, duration: 0.5 }}
+            className="inline-flex items-center gap-2 mb-8"
           >
-            Get In Touch
-          </a>
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-50" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+            </span>
+            <span className="text-zinc-500 text-sm font-[var(--font-geist-mono)]">
+              Available for freelance work
+            </span>
+          </motion.div>
+
+          {/* Name */}
+          <motion.h1
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15, duration: 0.6 }}
+            className="text-5xl md:text-7xl font-semibold tracking-tight text-zinc-100 leading-[1.05] mb-6"
+          >
+            {personal.name}
+          </motion.h1>
+
+          {/* Role */}
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.25, duration: 0.6 }}
+            className="text-xl md:text-2xl text-zinc-400 font-light mb-6 leading-relaxed"
+          >
+            {personal.role}
+          </motion.p>
+
+          {/* Description */}
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35, duration: 0.6 }}
+            className="text-zinc-500 text-base md:text-lg max-w-xl leading-relaxed mb-10"
+          >
+            I build clean, performant web applications with modern tools.
+            Based in {personal.location}.
+          </motion.p>
+
+          {/* CTA Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.45, duration: 0.6 }}
+            className="flex flex-wrap gap-3"
+          >
+            <Button href="#projects" variant="primary">
+              View Projects <ArrowRight size={16} />
+            </Button>
+            <Button href={personal.social.github} external variant="ghost">
+              <Github size={16} /> GitHub
+            </Button>
+          </motion.div>
         </motion.div>
       </div>
-      
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.2 }}
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2"
-      >
-        <a href="#about" className="hoverable">
-          <FiChevronDown className="text-light/60 text-3xl animate-bounce" />
-        </a>
-      </motion.div>
     </section>
   );
 }

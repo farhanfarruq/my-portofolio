@@ -1,60 +1,62 @@
-"use client";
-import { motion } from 'framer-motion';
-import SectionHeading from './ui/SectionHeading';
-import {fadeInUp, staggerContainer } from '../../hooks/useScrollAnimation';
-import { useScrollAnimation } from '../../hooks/useScrollAnimation';
+'use client';
 
-const experiences = [
-  {
-    company: 'Freelance',
-    position: 'Web Developer',
-    period: '2024 - Present',
-    description: [
-      'Built custom websites and web applications for small businesses',
-      'Worked with clients to understand requirements and deliver solutions',
-      'Managed all aspects of projects from design to deployment'
-    ]
-  }
-];
+import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
+import { MapPin } from 'lucide-react';
+import SectionHeading from './ui/SectionHeading';
+import { experiences } from '@/lib/data';
 
 export default function Experience() {
-  const { ref, controls } = useScrollAnimation();
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: '-80px' });
 
   return (
-    <section id="experience" ref={ref} className="py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="hoverable-text">
-            <SectionHeading>Work Experience</SectionHeading>
-        </div>
-        
-        {/* Kontainer utama untuk animasi stagger */}
+    <section id="experience" className="py-24 border-t border-zinc-900">
+      <div className="max-w-5xl mx-auto px-6 lg:px-8">
+        <SectionHeading index="03." title="Experience" />
+
         <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          animate={controls}
-          className="relative border-l-2 border-primary/20"
+          ref={ref}
+          initial={{ opacity: 0, y: 24 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] }}
+          className="space-y-0 border-l border-zinc-800 ml-2"
         >
-          {experiences.map((exp, index) => (
-            // Setiap item akan muncul dengan animasi fadeInUp
-            <motion.div 
-              key={index}
-              variants={fadeInUp} // Ganti menjadi fadeInUp
-              className="mb-12 pl-8 relative group"
+          {experiences.map((exp, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, x: -8 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ delay: i * 0.1, duration: 0.5 }}
+              className="relative pl-8 pb-10"
             >
-              <div className="absolute -left-[7px] top-1 w-3 h-3 rounded-full bg-primary group-hover:scale-150 transition-transform" />
-              
-              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-1">
-                <h3 className="text-xl font-bold text-light hoverable-text">
-                  {exp.position} <span className="text-primary">As {exp.company}</span>
-                </h3>
-                <span className="text-light/60 font-mono text-sm">{exp.period}</span>
+              {/* Timeline dot */}
+              <div className="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-zinc-700 border-2 border-zinc-950 ring-1 ring-zinc-600" />
+
+              {/* Header */}
+              <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-4">
+                <div>
+                  <h3 className="text-base font-medium text-zinc-100">
+                    {exp.position}
+                    <span className="text-zinc-500 ml-2">@ {exp.company}</span>
+                  </h3>
+                  {exp.location && (
+                    <span className="inline-flex items-center gap-1 text-xs text-zinc-600 mt-1">
+                      <MapPin size={11} /> {exp.location}
+                    </span>
+                  )}
+                </div>
+                <span className="font-[var(--font-geist-mono)] text-xs text-zinc-600 shrink-0">
+                  {exp.period}
+                </span>
               </div>
-              
-              <ul className="mt-4 space-y-2">
-                {exp.description.map((item, i) => (
-                  <li key={i} className="flex hoverable-text">
-                    <span className="text-primary mr-3">▹</span>
-                    <span className="text-light/70">{item}</span>
+
+              {/* Description */}
+              <ul className="space-y-2">
+                {exp.description.map((item, j) => (
+                  <li key={j} className="flex gap-3 text-sm text-zinc-400 leading-relaxed">
+                    <span className="text-zinc-700 font-[var(--font-geist-mono)] shrink-0 mt-0.5">—</span>
+                    {item}
                   </li>
                 ))}
               </ul>
