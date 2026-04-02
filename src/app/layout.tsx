@@ -33,6 +33,11 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Farhan Farruq" }],
   creator: "Farhan Farruq",
+
+  verification: {
+    google: "23wCMmpYN6Q-hyRyzDo0-F3wlo8U3PiNQ2ENw0VNeEY",
+  },
+
   openGraph: {
     type: "website",
     locale: "en_US",
