@@ -1,6 +1,6 @@
 export const personal = {
     name: 'Farhan Farruq',
-    handle: 'farhan.dev',
+    handle: 'paan.dev',
     role: 'Full-Stack Web Developer',
     location: 'Yogyakarta, Indonesia',
     email: 'farhanmiftakhulfarruq@gmail.com',
