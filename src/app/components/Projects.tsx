@@ -1,4 +1,3 @@
-import SectionHeading from './ui/SectionHeading';
 import ProjectsClient from './ProjectsClient';
 import { projects as fallbackProjects } from '@/lib/data';
 
@@ -15,29 +14,25 @@ interface GitHubRepo {
 // Fetch from GitHub
 async function getGithubProjects() {
   try {
-    // Add Authorization header if GITHUB_TOKEN is available in .env
     const headers: Record<string, string> = {};
     if (process.env.GITHUB_TOKEN) {
       headers.Authorization = `token ${process.env.GITHUB_TOKEN}`;
     }
 
     const res = await fetch('https://api.github.com/users/farhanfarruq/repos?sort=pushed&per_page=100', {
-      next: { revalidate: 3600 }, // Cache for 1 hour to prevent rate limiting
+      next: { revalidate: 3600 },
       headers,
     });
     
     if (!res.ok) {
-      console.error('Failed to fetch from GitHub API', await res.text());
-      return fallbackProjects; // fallback if error (e.g. rate limit)
+      return fallbackProjects;
     }
 
     const repos: GitHubRepo[] = await res.json();
     
-    // Filter out forks and the profile repository itself
     const formattedProjects = repos
       .filter((repo) => !repo.fork && repo.name !== 'farhanfarruq')
       .map((repo) => ({
-        // Title formatting: replace dashes/underscores and capitalize words
         title: repo.name
           .replace(/[-_]/g, ' ')
           .replace(/\b\w/g, l => l.toUpperCase()),
@@ -50,7 +45,6 @@ async function getGithubProjects() {
     if (formattedProjects.length === 0) return fallbackProjects;
     return formattedProjects;
   } catch (error) {
-    console.error('Error fetching github projects:', error);
     return fallbackProjects;
   }
 }
@@ -59,11 +53,8 @@ export default async function Projects() {
   const projectsData = await getGithubProjects();
 
   return (
-    <section id="projects" className="py-24 border-t border-zinc-900">
-      <div className="max-w-5xl mx-auto px-6 lg:px-8">
-        <SectionHeading index="04." title="Projects" />
-        <ProjectsClient projects={projectsData} />
-      </div>
+    <section className="py-16 md:py-24 px-6 md:px-12 overflow-hidden" id="projects">
+      <ProjectsClient projects={projectsData} />
     </section>
   );
 }

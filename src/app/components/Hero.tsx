@@ -1,86 +1,43 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight, Github } from 'lucide-react';
 import { personal } from '@/lib/data';
-import Button from './ui/Button';
+import Image from 'next/image';
 
 export default function Hero() {
+  const [firstName, lastName] = personal.name.split(' ');
   return (
-    <section
-      id="home"
-      className="min-h-screen flex flex-col justify-center pt-24 pb-16"
-    >
-      <div className="max-w-5xl mx-auto px-6 lg:px-8 w-full">
+    <header className="relative w-full flex flex-col justify-center px-6 md:px-12 pt-32 pb-16 overflow-hidden">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 items-center max-w-5xl mx-auto w-full">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] }}
-          className="max-w-3xl"
+          transition={{ duration: 0.8, ease: [0.21, 0.47, 0.32, 0.98] }}
+          className="col-span-1 md:col-span-7"
         >
-          {/* Availability badge */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.1, duration: 0.5 }}
-            className="inline-flex items-center gap-2 mb-8"
-          >
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-50" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-            </span>
-            <span className="text-zinc-500 text-sm font-[var(--font-geist-mono)]">
-              Available for freelance work
-            </span>
-          </motion.div>
-
-          {/* Name */}
-          <motion.h1
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15, duration: 0.6 }}
-            className="text-5xl md:text-7xl font-semibold tracking-tight text-zinc-100 leading-[1.05] mb-6"
-          >
-            {personal.name}
-          </motion.h1>
-
-          {/* Role */}
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.25, duration: 0.6 }}
-            className="text-xl md:text-2xl text-zinc-400 font-light mb-6 leading-relaxed"
-          >
+          <h1 className="font-headline text-4xl md:text-6xl lg:text-7xl leading-[1.1] tracking-tight font-extrabold text-on-surface">
+            {firstName}<br />{lastName || ''}
+          </h1>
+          <p className="mt-4 md:mt-8 font-label uppercase tracking-[0.2em] md:tracking-[0.3em] text-[10px] md:text-sm text-primary font-semibold">
             {personal.role}
-          </motion.p>
-
-          {/* Description */}
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.35, duration: 0.6 }}
-            className="text-zinc-500 text-base md:text-lg max-w-xl leading-relaxed mb-10"
-          >
-            I build clean, performant web applications with modern tools.
-            Based in {personal.location}.
-          </motion.p>
-
-          {/* CTA Buttons */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.45, duration: 0.6 }}
-            className="flex flex-wrap gap-3"
-          >
-            <Button href="#projects" variant="primary">
-              View Projects <ArrowRight size={16} />
-            </Button>
-            <Button href={personal.social.github} external variant="ghost">
-              <Github size={16} /> GitHub
-            </Button>
-          </motion.div>
+          </p>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, delay: 0.2, ease: [0.21, 0.47, 0.32, 0.98] }}
+          className="col-span-1 md:col-span-5 flex justify-center md:justify-end"
+        >
+          <div className="relative w-full max-w-[200px] sm:max-w-[240px] aspect-[3/4] grayscale contrast-125 hover:grayscale-0 transition-all duration-700">
+            <Image
+              src="/images/avatar.jpg"
+              alt={personal.name}
+              fill
+              className="object-cover w-full h-full"
+            />
+          </div>
         </motion.div>
       </div>
-    </section>
+    </header>
   );
 }
