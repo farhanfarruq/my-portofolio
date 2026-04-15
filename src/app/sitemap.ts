@@ -8,13 +8,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'yearly',
       priority: 1,
     },
-    // Jika nanti Anda punya halaman lain seperti /projects atau /blog, 
-    // Anda bisa menambahkannya di bawah sini. Contoh:
-    // {
-    //   url: 'https://farhanfarruq.vercel.app/projects',
-    //   lastModified: new Date(),
-    //   changeFrequency: 'monthly',
-    //   priority: 0.8,
-    // },
+    {
+      url: 'https://farhanfarruq.vercel.app/#about',
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: 'https://farhanfarruq.vercel.app/#projects',
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: 'https://farhanfarruq.vercel.app/#contact',
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
   ]
 }
