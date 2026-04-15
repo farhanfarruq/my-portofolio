@@ -1,19 +1,39 @@
-import { personal } from '@/lib/data';
+import { personal } from "@/lib/data";
 
 export default function Footer() {
-    const year = new Date().getFullYear();
+  const year = new Date().getFullYear();
 
-    return (
-        <footer className="w-full flex flex-col justify-between bg-primary bg-gradient-to-br from-primary to-primary-container py-12 px-6 items-center text-center gap-8 text-on-primary font-body text-sm tracking-widest uppercase mt-0">
-            <div className="flex flex-col items-center gap-6">
-                <h2 className="text-3xl font-headline italic text-on-primary lowercase">the silent authority</h2>
-                <div className="flex flex-wrap justify-center gap-8">
-                    <a className="text-on-primary/70 hover:text-white transition-colors duration-500 active:translate-y-[-2px]" href={personal.social.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
-                    <a className="text-on-primary/70 hover:text-white transition-colors duration-500 active:translate-y-[-2px]" href={personal.social.github} target="_blank" rel="noopener noreferrer">GitHub</a>
-                    <a className="text-on-primary/70 hover:text-white transition-colors duration-500 active:translate-y-[-2px]" href={personal.social.email}>Email</a>
-                </div>
-            </div>
-            <p className="opacity-40 text-[10px] pb-4">© {year} {personal.name.toUpperCase()}. ALL RIGHTS RESERVED.</p>
-        </footer>
-    );
+  return (
+    <footer className="border-t border-primary/20 px-8 md:px-16 py-12 flex flex-col md:flex-row flex-wrap items-center justify-between relative z-10 bg-surface-lowest/60 gap-8 md:gap-0">
+      <div className="font-tech text-[11px] tracking-[0.4em] text-tertiary/40 uppercase text-center md:text-left">
+        {personal.name}{" "}
+        <span className="text-tertiary/80 ml-2 block md:inline mt-2 md:mt-0">
+          v1.0.0
+        </span>
+      </div>
+      <div className="flex flex-col md:flex-row items-center gap-6 md:gap-16">
+        <div className="flex items-center gap-8 md:gap-16">
+          <a
+            href={personal.social.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-tech text-[11px] tracking-[0.4em] text-tertiary/40 uppercase hover:text-primary transition-colors"
+          >
+            GitHub ↗
+          </a>
+          <a
+            href={personal.social.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-tech text-[11px] tracking-[0.4em] text-tertiary/40 uppercase hover:text-primary transition-colors"
+          >
+            LinkedIn ↗
+          </a>
+        </div>
+        <div className="font-tech text-[11px] tracking-[0.4em] text-tertiary/40 uppercase text-center md:text-left">
+          © {year} {personal.handle}
+        </div>
+      </div>
+    </footer>
+  );
 }

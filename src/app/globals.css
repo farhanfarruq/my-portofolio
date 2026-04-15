@@ -1,89 +1,111 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;400;500;600&family=JetBrains+Mono:wght@400;500&family=Unbounded:wght@200..900&family=Syncopate:wght@400;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
 @import "tailwindcss";
 
 @theme {
-  --color-surface: #f9f9f9;
-  --color-tertiary-container: #444444;
-  --color-on-background: #1a1c1c;
-  --color-primary-fixed: #b0f0d6;
-  --color-inverse-on-surface: #f1f1f1;
-  --color-inverse-surface: #2f3131;
-  --color-on-tertiary-fixed: #1b1c1c;
-  --color-background: #f9f9f9;
-  --color-secondary-container: #e5e2e1;
-  --color-tertiary-fixed-dim: #c8c6c5;
-  --color-surface-container-highest: #e2e2e2;
-  --color-on-tertiary-fixed-variant: #474746;
-  --color-tertiary-fixed: #e4e2e1;
-  --color-on-surface-variant: #404944;
-  --color-on-primary-fixed: #002117;
-  --color-tertiary: #2e2e2e;
-  --color-on-tertiary-container: #b3b1b1;
-  --color-outline-variant: #bfc9c3;
-  --color-outline: #707974;
-  --color-surface-tint: #2b6954;
-  --color-surface-container: #eeeeee;
-  --color-on-error-container: #93000a;
-  --color-secondary-fixed-dim: #c8c6c5;
-  --color-surface-bright: #f9f9f9;
-  --color-surface-container-low: #f3f3f3;
-  --color-surface-container-high: #e8e8e8;
-  --color-surface-variant: #e2e2e2;
-  --color-on-primary: #ffffff;
-  --color-surface-dim: #dadada;
-  --color-secondary: #5f5e5e;
-  --color-primary-fixed-dim: #95d3ba;
-  --color-error-container: #ffdad6;
-  --color-on-secondary-fixed-variant: #474646;
-  --color-on-surface: #1a1c1c;
-  --color-primary-container: #064e3b;
-  --color-error: #ba1a1a;
-  --color-on-secondary-container: #656464;
-  --color-on-secondary-fixed: #1c1b1b;
-  --color-on-primary-fixed-variant: #0b513d;
-  --color-on-tertiary: #ffffff;
-  --color-on-secondary: #ffffff;
-  --color-on-primary-container: #80bea6;
-  --color-surface-container-lowest: #ffffff;
-  --color-on-error: #ffffff;
-  --color-primary: #003527;
-  --color-inverse-primary: #95d3ba;
-  --color-secondary-fixed: #e5e2e1;
+    --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+    --font-display: "Unbounded", sans-serif;
+    --font-tech: "Space Grotesk", sans-serif;
+    --font-alt: "Syncopate", sans-serif;
 
-  --radius-DEFAULT: 0px;
-  --radius-lg: 0px;
-  --radius-xl: 0px;
-  --radius-full: 9999px;
-
-  --font-headline: "Newsreader", serif;
-  --font-body: "Inter", sans-serif;
-  --font-label: "Inter", sans-serif;
+    --color-surface: #05170e;
+    --color-surface-low: #0d1f16;
+    --color-surface-lowest: #021109;
+    --color-primary: #c5ff4a;
+    --color-primary-muted: #1a4d1a;
+    --color-secondary: #00fbfb;
+    --color-tertiary: #fbfaee;
+    --color-text-muted: #7a8c7a;
 }
 
 @layer base {
-  :root {
-    color-scheme: light;
-  }
+    body {
+        @apply bg-surface text-tertiary font-sans selection:bg-primary selection:text-surface-lowest overflow-x-hidden;
+        background-image: radial-gradient(
+            circle at 50% 50%,
+            rgba(197, 255, 74, 0.03) 0%,
+            transparent 80%
+        );
+        pointer-events: auto;
+        transition: background-color 0.4s ease, color 0.4s ease;
+    }
+
+    /* ── Light Mode overrides ───────────────────────────────────────────── */
+    [data-theme="light"] {
+        --color-surface: #f5f2e8;
+        --color-surface-low: #ede9d8;
+        --color-surface-lowest: #e8e4d2;
+        --color-primary: #4a7c00;
+        --color-primary-muted: #c8e6a0;
+        --color-secondary: #007a7a;
+        --color-tertiary: #1a1a0e;
+        --color-text-muted: #5a6a4a;
+        background-image: radial-gradient(
+            circle at 50% 50%,
+            rgba(74, 124, 0, 0.04) 0%,
+            transparent 80%
+        );
+    }
+
+    [data-theme="light"] body::before {
+        background:
+            linear-gradient(rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.03) 50%),
+            linear-gradient(
+                90deg,
+                rgba(100, 0, 0, 0.01),
+                rgba(0, 80, 0, 0.005),
+                rgba(0, 0, 100, 0.01)
+            );
+    }
+
+    /* Scanline effect */
+    body::before {
+        content: " ";
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        background:
+            linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%),
+            linear-gradient(
+                90deg,
+                rgba(255, 0, 0, 0.02),
+                rgba(0, 255, 0, 0.01),
+                rgba(0, 0, 255, 0.02)
+            );
+        z-index: 100;
+        background-size:
+            100% 2px,
+            3px 100%;
+        pointer-events: none;
+    }
 }
 
 @layer utilities {
-  .editorial-underline {
-    position: relative;
-    display: inline-block;
-  }
-  .editorial-underline::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -4px;
-    width: 100%;
-    height: 1.5px;
-    background-color: var(--color-primary);
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.5s ease;
-  }
-  .editorial-underline:hover::after {
-    transform: scaleX(1);
-    transform-origin: left;
-  }
+    .glow-primary {
+        text-shadow: 0 0 10px rgba(197, 255, 74, 0.5);
+    }
+    [data-theme="light"] .glow-primary {
+        text-shadow: 0 0 10px rgba(74, 124, 0, 0.4);
+    }
+    .border-glow {
+        box-shadow: 0 0 15px rgba(197, 255, 74, 0.1);
+    }
+    [data-theme="light"] .border-glow {
+        box-shadow: 0 0 15px rgba(74, 124, 0, 0.12);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: rgba(197, 255, 74, 0.2);
+    }
+    [data-theme="light"] .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: rgba(74, 124, 0, 0.2);
+    }
 }

@@ -1,19 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Newsreader } from "next/font/google";
 import "./globals.css";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const newsreader = Newsreader({
-  variable: "--font-newsreader",
-  subsets: ["latin"],
-  style: ['normal', 'italic'],
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://farhanfarruq.dev"),
@@ -51,8 +37,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Farhan Farruq — Full-Stack Web Developer",
-    description:
-      "Full-stack web developer based in Yogyakarta, Indonesia.",
+    description: "Full-stack web developer based in Yogyakarta, Indonesia.",
   },
   robots: {
     index: true,
@@ -68,7 +53,10 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
-        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+          rel="stylesheet"
+        />
         <style>{`
           .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
@@ -76,10 +64,25 @@ export default function RootLayout({
         `}</style>
       </head>
       <body
-        className={`${inter.variable} ${newsreader.variable} bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container antialiased`}
+        className="min-h-screen bg-surface text-tertiary font-sans flex flex-col relative selection:bg-primary selection:text-surface antialiased custom-scrollbar"
         suppressHydrationWarning
       >
-        {children}
+        {/* Background Statue Image (Duotone Effect) */}
+        <div className="fixed inset-0 pointer-events-none z-0 opacity-15">
+          <div
+            className="absolute inset-0 bg-cover bg-center grayscale contrast-150 brightness-50"
+            style={{
+              backgroundImage:
+                "url('https://picsum.photos/seed/hermes-statue-bg/1920/1080')",
+            }}
+          />
+          <div className="absolute inset-0 bg-surface/80 mix-blend-multiply" />
+        </div>
+
+        <div className="relative z-10 flex-1 flex flex-col">{children}</div>
+
+        {/* Global Grain Overlay */}
+        <div className="fixed inset-0 pointer-events-none z-50 opacity-[0.03] bg-[url('/noise.svg')]" />
       </body>
     </html>
   );

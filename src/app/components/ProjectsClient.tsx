@@ -1,6 +1,9 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { GlitchText } from "@/app/components/ui/GlitchText";
+import { Github, ExternalLink } from "lucide-react";
 
 interface Project {
   title: string;
@@ -12,84 +15,87 @@ interface Project {
 
 export default function ProjectsClient({ projects }: { projects: Project[] }) {
   const [showAll, setShowAll] = useState(false);
-  const displayedProjects = showAll ? projects : projects.slice(0, 3);
+  const displayedProjects = showAll ? projects : projects.slice(0, 4);
 
   return (
-    <div className="flex flex-col gap-16 md:gap-24 max-w-6xl mx-auto">
-      {displayedProjects.map((project, index) => {
-        const layoutType = index % 3;
-        const numberStr = `0${index + 1}`.slice(-2);
+    <div className="flex flex-col">
+      <div className="grid grid-cols-1 lg:grid-cols-2">
+        <AnimatePresence mode="popLayout">
+          {displayedProjects.map((project, i) => (
+            <motion.div
+              key={project.title}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ delay: (i % 4) * 0.1, duration: 0.4 }}
+              className="p-8 md:p-12 border-b border-primary/20 lg:odd:border-r hover:bg-primary/5 transition-colors group flex flex-col h-full relative"
+            >
+              <div className="flex justify-between items-start mb-6 relative z-10">
+                <h3 className="font-display text-[14px] md:text-[16px] text-tertiary tracking-[0.1em] uppercase group-hover:text-primary transition-colors pr-8">
+                  <GlitchText text={project.title} isBold />
+                </h3>
+                <div className="flex gap-4 items-center mt-1 shrink-0">
+                  {project.github && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-tertiary/40 hover:text-primary transition-colors"
+                      aria-label="GitHub Repository"
+                    >
+                      <Github size={16} />
+                    </a>
+                  )}
+                  {project.live && (
+                    <a
+                      href={project.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-tertiary/40 hover:text-primary transition-colors"
+                      aria-label="Live Project"
+                    >
+                      <ExternalLink size={16} />
+                    </a>
+                  )}
+                </div>
+              </div>
 
-        if (layoutType === 0) {
-          // Left Aligned
-          return (
-            <div key={project.title} className="grid grid-cols-12">
-              <div className="col-span-12 md:col-span-8">
-                <div className="flex items-start gap-8">
-                  <span className="font-headline text-5xl md:text-7xl font-extrabold opacity-5 leading-none">{numberStr}</span>
-                  <div>
-                    <h3 className="font-headline text-3xl md:text-4xl font-bold mb-3 md:mb-4 hover:italic transition-all cursor-default">{project.title}</h3>
-                    <div className="flex flex-wrap gap-8 items-center">
-                      <span className="font-label text-xs uppercase tracking-widest text-secondary">{project.tags.join(' / ')}</span>
-                      <a className="font-label text-xs uppercase tracking-[0.2em] text-primary editorial-underline font-bold" href={project.live || project.github} target="_blank" rel="noopener noreferrer">
-                        {project.live ? 'View Live' : 'View Code'}
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        } else if (layoutType === 1) {
-          // Right Aligned
-          return (
-            <div key={project.title} className="grid grid-cols-12">
-              <div className="col-span-12 md:col-start-5 md:col-span-8">
-                <div className="flex items-start gap-8 justify-end text-right">
-                  <div>
-                    <h3 className="font-headline text-3xl md:text-4xl font-bold mb-3 md:mb-4 hover:italic transition-all cursor-default text-right">{project.title}</h3>
-                    <div className="flex flex-wrap gap-8 items-center justify-end">
-                      <a className="font-label text-xs uppercase tracking-[0.2em] text-primary editorial-underline font-bold" href={project.live || project.github} target="_blank" rel="noopener noreferrer">
-                        {project.live ? 'View Live' : 'View Code'}
-                      </a>
-                      <span className="font-label text-xs uppercase tracking-widest text-secondary">{project.tags.join(' / ')}</span>
-                    </div>
-                  </div>
-                  <span className="font-headline text-5xl md:text-7xl font-extrabold opacity-5 leading-none">{numberStr}</span>
-                </div>
-              </div>
-            </div>
-          );
-        } else {
-          // Center Aligned
-          return (
-            <div key={project.title} className="grid grid-cols-12">
-              <div className="col-span-12 md:col-start-3 md:col-span-8 flex flex-col items-center">
-                <div className="flex items-start gap-8">
-                  <span className="font-headline text-5xl md:text-7xl font-extrabold opacity-5 leading-none">{numberStr}</span>
-                  <div className="text-center">
-                    <h3 className="font-headline text-3xl md:text-4xl font-bold mb-3 md:mb-4 hover:italic transition-all cursor-default">{project.title}</h3>
-                    <div className="flex flex-wrap gap-8 items-center justify-center">
-                      <span className="font-label text-xs uppercase tracking-widest text-secondary">{project.tags.join(' / ')}</span>
-                      <a className="font-label text-xs uppercase tracking-[0.2em] text-primary editorial-underline font-bold" href={project.live || project.github} target="_blank" rel="noopener noreferrer">
-                        {project.live ? 'View Live' : 'View Code'}
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          );
-        }
-      })}
+              <p className="text-text-muted text-[12px] md:text-[13px] leading-relaxed font-light opacity-80 group-hover:opacity-100 transition-opacity mb-10 flex-1 font-mono relative z-10">
+                {project.description}
+              </p>
 
-      {projects.length > 3 && (
-        <div className="flex justify-center mt-16 md:mt-32">
+              <div className="flex flex-wrap gap-2 mt-auto relative z-10">
+                {project.tags.map((tag) => (
+                  <span
+                    key={tag}
+                    className="font-tech text-[9px] tracking-[0.2em] uppercase text-primary/60 border border-primary/20 px-2 py-1 bg-surface-lowest/50"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              {/* Subtle hover gradient */}
+              <div className="absolute inset-0 pointer-events-none bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity z-0" />
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </div>
+
+      {projects.length > 4 && (
+        <div className="px-8 md:px-16 py-8 flex items-center justify-center bg-surface/20">
           <button
             onClick={() => setShowAll(!showAll)}
-            className="font-label text-xs uppercase tracking-[0.2em] text-primary editorial-underline font-bold cursor-pointer"
+            className="flex items-center gap-3 cursor-pointer group px-6 py-3 border border-primary/20 hover:bg-primary/5 transition-all bg-surface-lowest/50"
           >
-            {showAll ? 'Show Less Projects' : 'Load More Projects'}
+            <span className="font-tech text-[10px] tracking-[0.4em] text-tertiary/40 uppercase group-hover:text-primary transition-colors">
+              {showAll ? "Terminate Sequence" : "Execute Pagination"}
+            </span>
+            <div
+              className={`w-2 h-2 border-b border-r border-tertiary/40 transition-all duration-300 group-hover:border-primary ${
+                showAll ? "-rotate-[135deg] translate-y-1" : "rotate-45"
+              }`}
+            />
           </button>
         </div>
       )}
