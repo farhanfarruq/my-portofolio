@@ -11,6 +11,9 @@ export const metadata: Metadata = {
     "Full-stack web developer based in Yogyakarta, Indonesia. Specializing in React, Next.js, and Laravel. Building clean, performant web applications.",
   keywords: [
     "Farhan Farruq",
+    "full stack web developer yogyakarta",
+    "react next.js developer portfolio",
+    "laravel full stack developer",
     "web developer",
     "full-stack",
     "React",
@@ -28,7 +31,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://farhanfarruq.dev",
+    url: "https://farhanfarruq.vercel.app",
     siteName: "Farhan Farruq",
     title: "Farhan Farruq — Full-Stack Web Developer",
     description:
@@ -62,6 +65,42 @@ export default function RootLayout({
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
           }
         `}</style>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "Person",
+                  "@id": "https://farhanfarruq.vercel.app/#person",
+                  name: "Farhan Farruq",
+                  jobTitle: "Full-Stack Web Developer",
+                  url: "https://farhanfarruq.vercel.app",
+                  sameAs: [
+                    "https://github.com/farhanfarruq",
+                    "https://linkedin.com/in/farhanfarruq"
+                  ],
+                  description: "Farhan Farruq is a full-stack web developer based in Yogyakarta, specializing in React, Next.js, and Laravel.",
+                  address: {
+                    "@type": "PostalAddress",
+                    addressLocality: "Yogyakarta",
+                    addressCountry: "ID"
+                  }
+                },
+                {
+                  "@type": "WebSite",
+                  "@id": "https://farhanfarruq.vercel.app/#website",
+                  url: "https://farhanfarruq.vercel.app",
+                  name: "Farhan Farruq Portfolio",
+                  publisher: {
+                    "@id": "https://farhanfarruq.vercel.app/#person"
+                  }
+                }
+              ]
+            }),
+          }}
+        />
       </head>
       <body
         className="min-h-screen bg-surface text-tertiary font-sans flex flex-col relative selection:bg-primary selection:text-surface antialiased custom-scrollbar"
