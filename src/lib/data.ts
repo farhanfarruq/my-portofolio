@@ -45,13 +45,13 @@ export const skillGroups = [
 export const experiences = [
     {
         company: 'PT Panemu Solusi Industri',
-        position: 'Fullstack Developer',
+        position: 'Web Developer Intern',
         period: '1 April 2026 — 31 Juli 2026',
         location: 'Yogyakarta',
         description: [
-            'Working dynamically within the IT division as a Fullstack Developer intern',
-            'Collaborating with the team to gather requirements, design, and develop web capabilities',
-            'Applying full-stack technologies to build clean, maintainable industrial solutions'
+            'Currently completing an internship in the IT division as a Web Developer Intern',
+            'Supporting the team in gathering requirements, designing, and developing web capabilities',
+            'Applying full-stack technologies while learning to build clean, maintainable industrial solutions'
         ],
     },
     {
